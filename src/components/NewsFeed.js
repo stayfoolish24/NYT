@@ -1,22 +1,72 @@
 import react, { Component } from 'react'
-import { ListView, StyleSheet, View } from 'react-native'
+import {
+  ListView,
+  StyleSheet,
+  View,
+  Modal,
+  TouchableOpacity
+} from 'react-native'
 import * as globalStyles from '../styles/global'
 import NewsItem from './NewsItem'
+import SmallText from './SmallText'
 
-export default class NewsFeed extends Component {
+class NewsFeed extends Component {
   constructor(props) {
     super(props)
     this.ds = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1.title !== row2.title
     })
     this.state = {
-      dataSource: this.ds.cloneWithRows(props.news)
+      dataSource: this.ds.cloneWithRows(props.news),
+      modalVisible: false
     }
+
+    this.renderRow = this.renderRow.bind(this)
+    this.onModalClose = this.onModalClose.bind(this)
+    this.onModalOpen = this.onModalOpen.bind(this)
+  }
+
+  onModalOpen() {
+    this.setState({
+      modalVisible: true
+    })
+  }
+
+  onModalClose() {
+    this.setState({
+      modalVisible: false
+    })
+  }
+
+  renderModal() {
+    return (
+      <Modal
+        animationType="slide"
+        visible={this.state.modalVisible}
+        onRequestClose={this.onModalClose}
+      >
+        <View style={styles.modalContent}>
+          <TouchableOpacity
+            onPress={this.onModalClose}
+            style={styles.closeButton}
+          >
+            <SmallText>Close</SmallText>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    )
   }
 
   renderRow(rowData, ...rest) {
     const index = parseInt(rest[1], 10)
-    return <NewsItem style={StyleSheet.newsItem} index={index} {...rowData} />
+    return (
+      <NewsItem
+        onPress={() => this.onModalOpen()}
+        style={StyleSheet.newsItem}
+        index={index}
+        {...rowData}
+      />
+    )
   }
 
   render() {
@@ -28,6 +78,7 @@ export default class NewsFeed extends Component {
           renderRow={this.renderRow}
           style={this.props.listStyles}
         />
+        {this.renderModal()}
       </View>
     )
   }
@@ -64,5 +115,18 @@ NewsFeed.defaultProps = {
 const styles = StyleSheet.create({
   newsItem: {
     marginBottom: 20
+  },
+  modalContent: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: 20,
+    backgroundColor: globalStyles.BG_COLOR
+  },
+  closeButton: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    flexDirection: 'row'
   }
 })
+
+export default NewsFeed

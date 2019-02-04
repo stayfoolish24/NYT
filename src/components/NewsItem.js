@@ -14,14 +14,15 @@ class NewsItem extends Component {
       author,
       date,
       location,
-      description
+      description,
+      onPress
     } = this.props
     const accentColor =
       globalStyles.ACCENT_COLORS[
         this.props.index % globalStyles.ACCENT_COLORS.length
       ]
     return (
-      <TouchableOpacity style={style}>
+      <TouchableOpacity style={style} onPress={onPress}>
         <View>
           <Thumbnail
             url={imageUrl}
