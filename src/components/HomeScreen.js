@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { TabBarIOS, Text } from 'react-native'
+import { TabBarIOS, Text, Alert, Vibration, StatusBar } from 'react-native'
 import NewsFeed from './NewsFeed'
 import Search from './Search'
 import * as globalStyles from '../styles/global'
 
 //iOS에서 상태바의 내용을 흰색으로
-statusbar.setBarStyle('light-content')
+Statusbar.setBarStyle('light-content')
 
 class HomeScreen extends Component {
   constructor(props) {
