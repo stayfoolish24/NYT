@@ -17,7 +17,7 @@ class Search extends Component {
             style={styles.input}
             onChangeText={text => this.setState({ searchText: text })}
             value={this.state.searchText}
-            placeholder={'Search'}
+            placeholder={'Search placeholder test'}
             placeholderTextColor={globalStyles.MUTED_COLOR}
           />
         </View>
