@@ -29,10 +29,17 @@ Thumbnail.propTypes = {
   titleText: PropTypes.string
 }
 
+// const stlyes = StyleSheet.create({
+//   container: { borderBottomWidth: 3, borderStyle: 'solid' },
+//   image: { height: 100, justifyContent: 'flex-end' },
+//   title: { padding: 5 }
+// })
+
 const stlyes = StyleSheet.create({
-  container: { borderBottomWidth: 3, borderStyle: 'solid' },
-  image: { height: 100, justifyContent: 'flex-end' },
+  container: { borderBottomWidth: 2, borderStyle: 'solid' },
+  image: { height: 80, justifyContent: 'flex-end' },
   title: { padding: 5 }
 })
+
 
 export default Thumbnail
